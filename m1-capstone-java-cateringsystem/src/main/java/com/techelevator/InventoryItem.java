@@ -9,6 +9,10 @@ public class InventoryItem {
 	public InventoryItem(Product product) {
 		this.product = product;
 	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	
 	
 
