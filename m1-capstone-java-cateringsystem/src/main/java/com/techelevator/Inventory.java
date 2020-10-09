@@ -41,7 +41,7 @@ public class Inventory {
 		if (sku == null) {
 			return false;
 		}
-		if(testMap.containsKey(sku.toUpperCase()) || testMap.containsKey(sku.toLowerCase())) {
+		if(testMap.containsKey(sku)) {
 			return true;
 		}
 		else {
@@ -51,10 +51,26 @@ public class Inventory {
 	
 	
 	public boolean checkAmountExists(String sku, int amount, Map<String, InventoryItem> testMap) {
+		if (amount == 0) { 
+			return false;
+		}
+		InventoryItem currentItem = testMap.get(sku);
+
+		if(amount <= currentItem.getQuantity()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 		
 		
-		return true;
+		
 	}
+	
+	public boolean checkBalance(String sku, int amount, BigDecimal currentBalance, Map<String, InventoryItem> testMap) {
+		return false;
+	}
+	
 	
 	
 	public Product buyProduct(String sku, int amount, BigDecimal currentBalance, Map<String, InventoryItem> testMap) {

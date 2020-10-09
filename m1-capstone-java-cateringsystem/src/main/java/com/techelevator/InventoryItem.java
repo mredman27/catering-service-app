@@ -10,8 +10,19 @@ public class InventoryItem {
 		this.product = product;
 	}
 
+	
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+	public Product getProduct() {
+		return product;
 	}
 	
 	

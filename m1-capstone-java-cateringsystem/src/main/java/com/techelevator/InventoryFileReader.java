@@ -8,12 +8,14 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import org.springframework.util.LinkedCaseInsensitiveMap;
+
 public class InventoryFileReader {
 	
 	
 	public Map<String, InventoryItem> loadInventoryFromFile() {
 		
-		Map<String, InventoryItem> tempMap = new LinkedHashMap<String, InventoryItem>();
+		Map<String, InventoryItem> tempMap = new LinkedCaseInsensitiveMap<>();
 		
 		File inventoryFile = new File("cateringsystem.csv");
 		

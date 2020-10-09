@@ -20,6 +20,9 @@ public class UserInterface {
 		if(error == 1) {
 			System.out.println("Invalid choice, try again");
 		}
+		if(error == 2) {
+			System.out.println("");
+		}
 		
 	}
 	public String displayOrderMenu() {

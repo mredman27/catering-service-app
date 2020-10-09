@@ -4,6 +4,7 @@ package com.techelevator;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,11 +28,12 @@ public class InventoryTest {
 	Product testProduct2;
 	Product testProduct3;
 	Product testProduct4;
+	BigDecimal currentBalance;
 	
 	@Before
 	public void setUp() {
 		inventory = new Inventory();
-		inventoryMap = new HashMap<String, InventoryItem>();
+		inventoryMap = new LinkedCaseInsensitiveMap<>();
 		inventory.setInventoryMap(inventoryMap);
 		//inventoryList = new ArrayList<InventoryItem>();
 		testProduct1 = new Product("B1","Soda", new BigDecimal(1.50), "B");
@@ -112,5 +114,40 @@ public class InventoryTest {
 		Assert.assertEquals(testProduct2, inventory.buyProduct("A1", 49, new BigDecimal(172), inventoryMap));
 		
 	}
+	
+	@Test
+	public void checkBalanceCanAfford() {
+		inventoryMap.put("B1", testItem1);
+		inventoryMap.put("A1", testItem2);
+		inventoryMap.put("E1", testItem3);
+		inventoryMap.put("D1", testItem4);
+		currentBalance = new BigDecimal(500);
+		
+		Assert.assertTrue(inventory.checkBalance("B1", 1, currentBalance, inventoryMap));
+	}
+	
+	@Test
+	public void checkBalanceCannotAfford() {
+		inventoryMap.put("B1", testItem1);
+		inventoryMap.put("A1", testItem2);
+		inventoryMap.put("E1", testItem3);
+		inventoryMap.put("D1", testItem4);
+		currentBalance = new BigDecimal(2);
+		
+		Assert.assertTrue(inventory.checkBalance("B1", 10, currentBalance, inventoryMap));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
