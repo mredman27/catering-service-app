@@ -6,6 +6,9 @@ public class CashBox {
 	
 	private BigDecimal currentBalance = new BigDecimal(0);
 	
+	
+	
+	
 	public BigDecimal addToBalance(BigDecimal amount) {
 		currentBalance = currentBalance.add(amount);
 		
@@ -18,7 +21,11 @@ public class CashBox {
 	}
 	
 	public boolean checkBalanceStaysBelow5000(BigDecimal amountToAdd) {
-		if(amountToAdd.add(currentBalance).compareTo(new BigDecimal(5000)) == 1) {
+		
+		if(amountToAdd.compareTo(new BigDecimal(0)) == 0) {
+			return false;
+		}
+		else if(amountToAdd.add(currentBalance).compareTo(new BigDecimal(5000)) == 1) {
 			return false;
 		}
 		else {
@@ -32,5 +39,11 @@ public class CashBox {
 		
 		return currentBalance;
 	}
+
+
+	public void setCurrentBalance(BigDecimal currentBalance) {
+		this.currentBalance = currentBalance;
+	}
+	
 	
 }

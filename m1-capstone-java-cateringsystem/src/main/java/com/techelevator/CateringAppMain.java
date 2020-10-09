@@ -12,6 +12,10 @@ public class CateringAppMain {
 	
 	private Cart cart;
 	
+	private Change change;
+	
+	private AuditWriter writer;
+	
 	private final String DISPLAY_CATERING_ITEMS = "1";
 	
 	private final String ORDER = "2";
@@ -32,6 +36,10 @@ public class CateringAppMain {
 		cashBox = new CashBox();
 		
 		cart = new Cart();
+		
+		writer = new AuditWriter();
+		
+		change = new Change();
 		
 	}
 
@@ -84,8 +92,12 @@ public class CateringAppMain {
 			
 			if(response.equals(ADD_MONEY)) {
 				BigDecimal amountToAdd = userInterface.displayAmountToDeposit();
-				if(cashBox.checkBalanceStaysBelow5000(amountToAdd)) {
+				if(amountToAdd.compareTo(new BigDecimal(0)) == 0) {
+					userInterface.displayErrorMessage(0);
+				}
+				else if(cashBox.checkBalanceStaysBelow5000(amountToAdd)) {
 					BigDecimal currentBalance = cashBox.addToBalance(amountToAdd);
+					writer.createAddToBalance(amountToAdd, currentBalance);
 					
 				}
 				else {
@@ -96,18 +108,26 @@ public class CateringAppMain {
 			
 			else if(response.equals(SELECT_PRODUCTS)) {
 				String sku = userInterface.displaySkuChoice();
+				//checking if product key exists
 				if(inventory.checkInventoryExists(sku)) {
 					int amount = userInterface.displayAmountChoice();
+					//checking if enough exist to fill order
 					if(inventory.checkAmountExists(sku, amount)) {
+						//checking if customer can afford order
 						if(inventory.checkBalance(sku, amount, cashBox.getCurrentBalance())) {
+							//buying product and placing it in cart
 							Product product = inventory.buyProduct(sku, amount, cashBox.getCurrentBalance());
 							cart.createLineItem(amount, product);
 							cashBox.subtractFromBalance(amount, product);
+							//adding to audit
+							BigDecimal subTotal = new BigDecimal(amount).multiply(product.getPrice());
+							writer.createBuyAction(product, amount, subTotal, cashBox.getCurrentBalance());
 							
 						}
 						else {
 							userInterface.displayErrorMessage(4);
 						}
+						//print balance after a purchase
 						userInterface.displayCurrentBalance(cashBox.getCurrentBalance());
 					}
 					else {
@@ -120,10 +140,13 @@ public class CateringAppMain {
 			}
 			
 			else if(response.equals(COMPLETE_TRANSACTION)) {
+				//printing out cart, clearing cart
 				userInterface.displayCartatCheckOut(cart.calculateTotalSpent(), cart.retrieveCart());   
 				cart.clearCart();
 				
-				
+				//writing audit to give change, clearing balance
+				writer.createGiveChange(change.giveChange(cashBox.getCurrentBalance()), new BigDecimal(0));
+				cashBox.setCurrentBalance(new BigDecimal(0));
 				running = false;
 			}
 			
@@ -132,16 +155,7 @@ public class CateringAppMain {
 			}
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	}
 	
 

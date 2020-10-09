@@ -10,7 +10,7 @@ public class Inventory {
 	
 	private InventoryFileReader reader;
 	
-	private AuditWriter writer;
+	
 	
 	private Map<String, InventoryItem> inventoryMap;
 	
@@ -19,7 +19,7 @@ public class Inventory {
 	public Inventory() {
 		reader = new InventoryFileReader();
 		inventoryMap = reader.loadInventoryFromFile();
-		writer = new AuditWriter();
+		
 	}
 	
 	public List<InventoryItem> retrieveItems() {

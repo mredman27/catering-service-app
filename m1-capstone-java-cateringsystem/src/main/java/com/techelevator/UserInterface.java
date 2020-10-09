@@ -20,6 +20,9 @@ public class UserInterface {
 	}
 	
 	public void displayErrorMessage(int error) {
+		if(error == 0) {
+			System.out.println("Must add some amount of money");
+		}
 		if(error == 1) {
 			System.out.println("Invalid choice, try again");
 		}
@@ -51,7 +54,6 @@ public class UserInterface {
 	
 	public void displayItems(List<InventoryItem> items) {
 		for(InventoryItem item : items) {
-			String itemType = "";
 			
 			System.out.printf("%-3s", item.getQuantity());
 			System.out.printf("%-3s", item.getProduct().getSku());
