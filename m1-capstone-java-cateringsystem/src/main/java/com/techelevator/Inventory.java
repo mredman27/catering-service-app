@@ -37,11 +37,11 @@ public class Inventory {
 	}
 	
 	
-	public boolean checkInventoryExists (String sku, Map<String, InventoryItem> testMap) {
+	public boolean checkInventoryExists (String sku) {
 		if (sku == null) {
 			return false;
 		}
-		if(testMap.containsKey(sku)) {
+		if(inventoryMap.containsKey(sku)) {
 			return true;
 		}
 		else {
@@ -50,11 +50,11 @@ public class Inventory {
 	}
 	
 	
-	public boolean checkAmountExists(String sku, int amount, Map<String, InventoryItem> testMap) {
+	public boolean checkAmountExists(String sku, int amount) {
 		if (amount == 0) { 
 			return false;
 		}
-		InventoryItem currentItem = testMap.get(sku);
+		InventoryItem currentItem = inventoryMap.get(sku);
 
 		if(amount <= currentItem.getQuantity()) {
 			return true;
@@ -67,17 +67,34 @@ public class Inventory {
 		
 	}
 	
-	public boolean checkBalance(String sku, int amount, BigDecimal currentBalance, Map<String, InventoryItem> testMap) {
-		return false;
+	public boolean checkBalance(String sku, int amount, BigDecimal currentBalance) {
+		InventoryItem currentItem = inventoryMap.get(sku);
+		BigDecimal currentTotalPrice = (currentItem.getProduct().getPrice()).multiply(new BigDecimal(amount));
+		if(currentTotalPrice.compareTo(currentBalance) == 0 || 
+				currentTotalPrice.compareTo(currentBalance) == -1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+		
 	}
 	
 	
 	
-	public Product buyProduct(String sku, int amount, BigDecimal currentBalance, Map<String, InventoryItem> testMap) {
+	public Product buyProduct(String sku, int amount, BigDecimal currentBalance) {
+		InventoryItem currentItem = inventoryMap.get(sku);
+		Product currentProduct = currentItem.getProduct();
+		currentItem.setQuantity(currentItem.getQuantity()-amount);
+		inventoryMap.put(sku, currentItem);
 		
 		
-		return new Product(null, null, null, null);
+		
+		return currentProduct;
 	}
+	
+	
 
 	
 	

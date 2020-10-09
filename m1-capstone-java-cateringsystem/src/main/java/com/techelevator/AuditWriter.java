@@ -36,10 +36,25 @@ public class AuditWriter {
 		}
 	}
 
+	public void createBuyAction(Product product, int amount) {
+		String productName = product.getName();
+		String productCode = product.getSku();
+		BigDecimal price = product.getPrice();
+		BigDecimal cost = price.multiply(new BigDecimal(amount)).setScale(2, RoundingMode.HALF_UP);
+		
+		String action = amount + " " + productName + " " + productCode;
+		
+		//addToReport(action, cost, cost);
+	}
+	
+	public void createAddToBalance(BigDecimal amountAdded, BigDecimal currentBalance) {
+		
+	}
+	
 	public void addToReport(String action, BigDecimal moneyInOrOut, BigDecimal currentBalance) {
 
-		moneyInOrOut = moneyInOrOut.setScale(2, RoundingMode.HALF_UP);
-		currentBalance = currentBalance.setScale(2, RoundingMode.HALF_UP);
+		
+		
 		LocalDateTime myDate = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy HH:mm:ss aa");
 		String formattedDate = myDate.format(formatter);

@@ -1,10 +1,16 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+
 public class CateringAppMain {
 	
 	private UserInterface userInterface;
 	
 	private Inventory inventory;
+	
+	private CashBox cashBox;
+	
+	private Cart cart;
 	
 	private final String DISPLAY_CATERING_ITEMS = "1";
 	
@@ -22,6 +28,11 @@ public class CateringAppMain {
 		userInterface = new UserInterface();
 		
 		inventory = new Inventory();
+		
+		cashBox = new CashBox();
+		
+		cart = new Cart();
+		
 	}
 
 	public static void main(String[] args) {
@@ -42,12 +53,13 @@ public class CateringAppMain {
 		while(running) {
 			String response = userInterface.printMainMenu();
 			
-			if(response.equals(DISPLAY_CATERING_ITEMS)) {
-				inventory.retrieveItems();			
+			if(response.equals(DISPLAY_CATERING_ITEMS)) {	
+				userInterface.displayItems(inventory.retrieveItems());
 			}
 			
 			else if(response.equals(ORDER)) {
-				//open order menu
+				orderMenuHandler();
+				
 			}
 			
 			else if(response.equals(QUIT)) {
@@ -71,14 +83,47 @@ public class CateringAppMain {
 			String response = userInterface.displayOrderMenu();
 			
 			if(response.equals(ADD_MONEY)) {
-				//add money
+				BigDecimal amountToAdd = userInterface.displayAmountToDeposit();
+				if(cashBox.checkBalanceStaysBelow5000(amountToAdd)) {
+					BigDecimal currentBalance = cashBox.addToBalance(amountToAdd);
+					
+				}
+				else {
+					userInterface.displayErrorMessage(5);
+				}
+				userInterface.displayCurrentBalance(cashBox.getCurrentBalance());
 			}
 			
 			else if(response.equals(SELECT_PRODUCTS)) {
-				//select products
+				String sku = userInterface.displaySkuChoice();
+				if(inventory.checkInventoryExists(sku)) {
+					int amount = userInterface.displayAmountChoice();
+					if(inventory.checkAmountExists(sku, amount)) {
+						if(inventory.checkBalance(sku, amount, cashBox.getCurrentBalance())) {
+							Product product = inventory.buyProduct(sku, amount, cashBox.getCurrentBalance());
+							cart.createLineItem(amount, product);
+							cashBox.subtractFromBalance(amount, product);
+							
+						}
+						else {
+							userInterface.displayErrorMessage(4);
+						}
+						userInterface.displayCurrentBalance(cashBox.getCurrentBalance());
+					}
+					else {
+						userInterface.displayErrorMessage(6);
+					}
+				}
+				else {
+					userInterface.displayErrorMessage(2);
+				}
 			}
 			
 			else if(response.equals(COMPLETE_TRANSACTION)) {
+				userInterface.displayCartatCheckOut(cart.calculateTotalSpent(), cart.retrieveCart());   
+				cart.clearCart();
+				
+				
 				running = false;
 			}
 			
