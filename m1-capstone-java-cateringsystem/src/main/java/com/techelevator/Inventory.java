@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Inventory {
 	
@@ -13,19 +14,26 @@ public class Inventory {
 	
 	private Map<String, InventoryItem> inventoryMap;
 	
+	private List<InventoryItem> inventoryList;
+	
 	public Inventory() {
 		reader = new InventoryFileReader();
 		inventoryMap = reader.loadInventoryFromFile();
 		writer = new AuditWriter();
 	}
 	
-	public List<InventoryItem> retrieveItems(Map<String, InventoryItem> testMap) {
+	public List<InventoryItem> retrieveItems() {
+		inventoryList = new ArrayList<InventoryItem>();
+		
+		Set<String> keySet = inventoryMap.keySet();
 		
 		
+		for(String key : keySet) {
+			InventoryItem tempItem = inventoryMap.get(key);
+			inventoryList.add(tempItem);
+		}
 		
-		
-		
-		return new ArrayList<InventoryItem>();
+		return inventoryList;
 	}
 	
 	

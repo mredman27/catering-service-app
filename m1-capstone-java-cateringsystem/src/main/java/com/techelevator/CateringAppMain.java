@@ -43,8 +43,7 @@ public class CateringAppMain {
 			String response = userInterface.printMainMenu();
 			
 			if(response.equals(DISPLAY_CATERING_ITEMS)) {
-				//view all items
-			
+				inventory.retrieveItems();			
 			}
 			
 			else if(response.equals(ORDER)) {

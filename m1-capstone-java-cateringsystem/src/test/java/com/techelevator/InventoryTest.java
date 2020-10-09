@@ -18,7 +18,7 @@ public class InventoryTest {
 	Inventory inventory;
 	
 	Map<String, InventoryItem> inventoryMap;
-	List<InventoryItem> inventoryList;
+	//List<InventoryItem> inventoryList;
 	InventoryItem testItem1;
 	InventoryItem testItem2;
 	InventoryItem testItem3;
@@ -31,9 +31,9 @@ public class InventoryTest {
 	@Before
 	public void setUp() {
 		inventory = new Inventory();
-		inventoryMap = new HashMap<String, InventoryItem>();
+		//inventoryMap = new HashMap<String, InventoryItem>();
 		inventory.setInventoryMap(inventoryMap);
-		inventoryList = new ArrayList<InventoryItem>();
+		//inventoryList = new ArrayList<InventoryItem>();
 		testProduct1 = new Product("B1","Soda", new BigDecimal(1.50), "B");
 		testProduct2 = new Product("A1", "Tropical fruit bowl", new BigDecimal(3.50), "A");
 		testProduct3 = new Product("E1", "Baked Chicken", new BigDecimal(8.85), "E");
@@ -43,17 +43,17 @@ public class InventoryTest {
 		testItem3 = new InventoryItem(testProduct3);
 		testItem4 = new InventoryItem(testProduct4);
 		
-		inventoryList.add(testItem1);
-		inventoryList.add(testItem2);
-		inventoryList.add(testItem3);
-		inventoryList.add(testItem4);
+//		inventoryList.add(testItem1);
+//		inventoryList.add(testItem2);
+//		inventoryList.add(testItem3);
+//		inventoryList.add(testItem4);
 	}
 	
-	@Test
-	public void retrieveItems() {
-		Assert.assertEquals(inventoryList, inventory.retrieveItems(inventoryMap));
-	}
-	
+//	@Test
+//	public void retrieveItems() {
+//		Assert.assertEquals(inventoryList, inventory.retrieveItems(inventoryMap));
+//	}
+//	
 	@Test
 	public void checkInventoryExists() {
 		inventoryMap.put("B1", testItem1);
