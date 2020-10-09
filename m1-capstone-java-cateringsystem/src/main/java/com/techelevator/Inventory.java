@@ -38,9 +38,15 @@ public class Inventory {
 	
 	
 	public boolean checkInventoryExists (String sku, Map<String, InventoryItem> testMap) {
-		
-		
-		return true;
+		if (sku == null) {
+			return false;
+		}
+		if(testMap.containsKey(sku.toUpperCase()) || testMap.containsKey(sku.toLowerCase())) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	

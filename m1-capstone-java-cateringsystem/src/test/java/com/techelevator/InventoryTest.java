@@ -31,7 +31,7 @@ public class InventoryTest {
 	@Before
 	public void setUp() {
 		inventory = new Inventory();
-		//inventoryMap = new HashMap<String, InventoryItem>();
+		inventoryMap = new HashMap<String, InventoryItem>();
 		inventory.setInventoryMap(inventoryMap);
 		//inventoryList = new ArrayList<InventoryItem>();
 		testProduct1 = new Product("B1","Soda", new BigDecimal(1.50), "B");
