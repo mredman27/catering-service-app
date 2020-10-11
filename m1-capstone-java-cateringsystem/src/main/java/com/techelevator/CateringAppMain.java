@@ -91,6 +91,7 @@ public class CateringAppMain {
 			String response = userInterface.displayOrderMenu();
 			
 			if(response.equals(ADD_MONEY)) {
+				//check amount to add, if appropriate add to balance
 				BigDecimal amountToAdd = userInterface.displayAmountToDeposit();
 				if(amountToAdd.compareTo(new BigDecimal(0)) == 0) {
 					userInterface.displayErrorMessage(0);
