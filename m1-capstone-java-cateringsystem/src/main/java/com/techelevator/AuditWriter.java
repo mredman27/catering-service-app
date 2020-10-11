@@ -45,7 +45,7 @@ public class AuditWriter {
 	
 	public void createAddToBalance(BigDecimal amountAdded, BigDecimal currentBalance) {
 		String action = "ADD MONEY:  ";
-		this.addToReport(action, amountAdded, currentBalance);
+		addToReport(action, amountAdded, currentBalance);
 		
 	}
 	
@@ -65,7 +65,6 @@ public class AuditWriter {
 				tens + " tens " + fives + " fives " + ones + " ones " + quarters + " quarters " +
 				dimes + " dimes " + nickels + " nickels ");
 		writer.flush();
-		
 	}
 	
 	public void addToReport(String action, BigDecimal moneyInOrOut, BigDecimal currentBalance) {

@@ -1,0 +1,9 @@
+11/10/2020 10:41:28 AM ADD MONEY:   $50 $50
+11/10/2020 10:41:36 AM 20 Soda B1 $30.00 $20.00
+11/10/2020 10:41:48 AM ADD MONEY:   $20 $40.00
+11/10/2020 10:42:03 AM GIVE CHANGE:  $40.00 $0
+CHANGE GIVEN: 2 twenties 0 tens 0 fives 0 ones 0 quarters 0 dimes 0 nickels 
+11/10/2020 10:42:21 AM ADD MONEY:   $15 $15
+11/10/2020 10:42:27 AM 1 Baked Chicken E1 $8.85 $6.15
+11/10/2020 10:42:30 AM GIVE CHANGE:  $6.15 $0
+CHANGE GIVEN: 0 twenties 0 tens 1 fives 1 ones 0 quarters 1 dimes 1 nickels 

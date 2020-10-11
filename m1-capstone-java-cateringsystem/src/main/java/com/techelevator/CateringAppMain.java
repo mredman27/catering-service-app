@@ -145,7 +145,7 @@ public class CateringAppMain {
 				cart.clearCart();
 				
 				//writing audit to give change, clearing balance
-				writer.createGiveChange(change.giveChange(cashBox.getCurrentBalance()), new BigDecimal(0));
+				writer.createGiveChange(change.giveChange(cashBox.getCurrentBalance()), cashBox.getCurrentBalance());
 				cashBox.setCurrentBalance(new BigDecimal(0));
 				running = false;
 			}
